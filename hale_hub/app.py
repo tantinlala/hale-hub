@@ -27,6 +27,7 @@ from hale_hub.home_stats import get_newest_room_stat
 from hale_hub.monitors.climate_monitor import ClimateMonitor
 from hale_hub.monitors.sunset_monitor import is_sun_set
 from hale_hub.monitors.time_monitor import TimeMonitor
+from hale_hub.monitors.multi_monitor import MultiMonitor
 from hale_hub.ifttt_logger import send_ifttt_log
 from hale_hub.outlet_interface import turn_on_outlet, turn_off_outlet
 
@@ -97,7 +98,11 @@ def configure_default_automations(app):
     def _bedroom_humidity_getter(): return get_newest_room_stat('Bedroom', 'Humidity')
     def _bedroom_humidity_logger(): return send_ifttt_log('Bedroom humidity too low!')
     bedroom_monitor = ClimateMonitor(_bedroom_humidity_getter, app.config['BEDROOM_HUMIDITY_LOW_TO_HIGH_THRESHOLD'], app.config['BEDROOM_HUMIDITY_HIGH_TO_LOW_THRESHOLD'], low_is_normal=False)
-    add_automation(bedroom_monitor.is_climate_abnormal, _bedroom_humidity_logger, "Bedroom humidity alarm", data=bedroom_monitor)
+    check_bedroom_time_monitor = TimeMonitor(app.config['CHECK_BEDROOM_HUMIDITY_HOUR'], app.config['CHECK_BEDROOM_HUMIDITY_MINUTE'])
+    multi_monitor = MultiMonitor()
+    multi_monitor.add_trigger(bedroom_monitor.is_climate_abnormal, bedroom_monitor)
+    multi_monitor.add_trigger(check_bedroom_time_monitor.did_alarm_trigger, check_bedroom_time_monitor)
+    add_automation(multi_monitor.is_triggered, _bedroom_humidity_logger, "Bedroom humidity alarm", data=multi_monitor)
 
     # Light on at sunset
     def _turn_on_light(): return turn_on_outlet(app.config['AUTO_LIGHT_OUTLET_ID'])
