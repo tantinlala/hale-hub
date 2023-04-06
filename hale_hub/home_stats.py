@@ -30,7 +30,7 @@ class _HomeStatsCollection:
         if location not in self.newest_room_stats.keys():
             self.newest_room_stats[location] = dict()
 
-        if location == "Basement":
+        if location == "Basement" and name == "Humidity":
             value -= BASEMENT_HUMIDITY_CALIBRATION
 
         self.newest_room_stats[location][name] = _RoomStat(value, DateSnapper(), units)
