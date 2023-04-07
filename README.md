@@ -1,4 +1,5 @@
 # Hale Hub: A home automation server
+Hale means home in Hawaiian
 
 ## Summary
 This repository provides the following functionality via a RESTful API (I've set up my iPhone to make these requests via Apple shortcuts)
@@ -13,11 +14,11 @@ The following automations are also available:
 In addition, a frontend is available that plots temperature and humidity over the last 12 hours over time for multiple rooms
 
 ## Example Pictures
-![alt text](https://github.com/tantinlala/hale-hub/blob/main/images/outlet_controls.jpg?raw=true)
+![alt text](https://github.com/tantinlala/hale-hub/main/images/outlet_controls.jpg?raw=true)
 
-![alt text](https://github.com/tantinlala/hale-hub/blob/main/images/home_stats.jpg?raw=true)
+![alt text](https://github.com/tantinlala/hale-hub/main/images/home_stats.jpg?raw=true)
 
-![alt text](https://github.com/tantinlala/hale-hub/blob/main/images/climate_plot.jpg?raw=true)
+![alt text](https://github.com/tantinlala/hale-hub/main/images/climate_plot.jpg?raw=true)
 
 ## Hardware
 - Etekcity Remote Control Outlet - https://www.amazon.com/gp/product/B00DQ2KGNK/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1 
