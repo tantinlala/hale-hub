@@ -65,6 +65,7 @@ SUNSET_OFFSET_MINUTES = 50
 
 ## Setup instructions - ESP8266
 One ESP8266 is used to control the 433MHz RF transmitter and receiver module. This ESP8266 is directly connected to the Raspberry Pi via a usb-to-serial connection.
+The following arduino package was used to implement an ESP8266 program that can send commands to the off-the-shelf RC outlets: https://github.com/sui77/rc-switch 
 
 Other ESP8266's are used to read the temperature and humidity from sensors. These readings are published via MQTT.
 
