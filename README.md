@@ -78,7 +78,7 @@ pi@neptr:~/Code/hale-hub/instance $ lsusb
 Bus 001 Device 004: ID 10c4:ea60 Cygnal Integrated Products, Inc. CP2102/CP2109 UART Bridge Controller [CP210x family]
 ```
 
-![alt text](https://github.com/tantinlala/hale-hub/blob/main/images/transmitter.JPG?raw=true)
+![alt text](https://github.com/tantinlala/hale-hub/blob/main/images/transmitter.jpg?raw=true)
 
 ### To Test Functionality of the Transmitter
 1. Connect the arduino to your computer
