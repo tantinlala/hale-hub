@@ -1,15 +1,14 @@
 # Hale Hub: A home automation server
-Hale means home in Hawaiian
-
+### Hale means home in Hawaiian!
 ## Summary
-This repository provides the following functionality via a RESTful API (I've set up my iPhone to make these requests via Apple shortcuts)
+This web application allows you to do the following from electronic devices such as your computer or your iPhone:
 - Turn radio-controlled outlet switches on and off 
-- Enable and disable automations (see below)
 - Request current temperature and humidity readings from multiple rooms
 
-The following automations are also available:
-- Turn outlets (e.g. light switches) on at sundown and off at time of your choosing
-- Send an IFTTT notification to your phone if the humidity or temperature in any room is outside of your comfort zone
+The following automations can also be turned on or off from your electronic device:
+- Automatically have one of your outlets turn on at sundown (e.g. a light switch) 
+- Automatically have that same outlet turn off before your bedtime
+- Automatically send an IFTTT notification to your phone if the humidity or temperature in any room is outside your comfort zone
 
 In addition, a frontend is available that plots temperature and humidity over the last 12 hours over time for multiple rooms
 
@@ -35,7 +34,7 @@ In addition, a frontend is available that plots temperature and humidity over th
 ```MQTT_BROKER_URL = 'replace_with_broker'  # use the free broker from HIVEMQ
 MQTT_USERNAME = ''  # set the username here if you need authentication for the broker
 MQTT_PASSWORD = ''  # set the password here if the broker demands authentication
-SERIAL_INTERFACE = 'replace_with_connected_esp8266s_name'
+SERIAL_INTERFACE = 'replace_with_transmitter_arduino_usb_name'
 IFTTT_SECRET_KEY = 'replace_with_your_ifttt_key'
 IFTTT_EVENT_NAME = 'replace_with_your_ifttt_configured_event_name'
 INSTANCE_TIMEZONE = 'replace_with_your_timezone_string'
@@ -63,10 +62,44 @@ SUNSET_OFFSET_MINUTES = 50
 8. Set up a systemd service so that it activates your virtual environment and then subsequently runs `hale_hub_run`
    1. This lets you set up your raspberry pi to run the web server at startup
 
+## Setup instructions - RC Transmitter Arduino 
+One Arduino / ESP8266 can be used to control the RC outlets via a 433MHz RF transmitter module.
+
+1. Install the RCSwitch library in your Arduino IDE: https://github.com/sui77/rc-switch
+2. Connect the IR transmitter pin to GPIO 5 on your Arduino board
+3. Connect the Vcc pin of the 433MHz transmitter module to Vin from your Arduino board
+4. Connect the GND side to GND on your arduino board
+5. Load the code in arduino/Hale_RC/Hale_RC.ino onto your arduino board
+6. Directly connect the arduino to your Raspberry pi via usb
+7. On the Raspberry Pi, run "lsusb"
+8. In your instance/instance_config.py file, set SERIAL_INTERFACE equal to the name that shows up for the Arduino device e.g.
+```buildoutcfg
+pi@neptr:~/Code/hale-hub/instance $ lsusb
+Bus 001 Device 004: ID 10c4:ea60 Cygnal Integrated Products, Inc. CP2102/CP2109 UART Bridge Controller [CP210x family]
+```
+
+![alt text](https://github.com/tantinlala/hale-hub/blob/main/images/transmitter.JPG?raw=true)
+
+### To Test Functionality of the Transmitter
+1. Connect the arduino to your computer
+2. Open the serial monitor (Baud rate: 9600)
+3. For testing purposes, you can type the corresponding character on the serial monitor to control the outlet(s):
+ 
+'¨': Turn outlet 0 off
+
+'©': Turn outlet 0 on
+
+'ª': Turn outlet 1 off
+
+'«': Turn outlet 1 on
+
+'¬': Turn outlet 2 off
+
+Press enter to send the command
+
 ## Setup instructions - ESP8266
-One ESP8266 is used to control the 433MHz RF transmitter and receiver module. This ESP8266 is directly connected to the Raspberry Pi via a usb-to-serial connection.
-The following arduino package was used to implement an ESP8266 program that can send commands to the off-the-shelf RC outlets: https://github.com/sui77/rc-switch 
+ESP8266's are used to read the temperature and humidity from sensors. These readings are published via MQTT.
 
-Other ESP8266's are used to read the temperature and humidity from sensors. These readings are published via MQTT.
+![alt text](https://github.com/tantinlala/hale-hub/blob/main/images/climate.jpeg?raw=true)
 
-(Please check back later for more detailed instructions)
+(Under construction)
