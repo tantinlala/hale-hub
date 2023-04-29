@@ -80,7 +80,7 @@ Bus 001 Device 004: ID 10c4:ea60 Cygnal Integrated Products, Inc. CP2102/CP2109 
 
 ![alt text](https://github.com/tantinlala/hale-hub/blob/main/images/transmitter.jpg?raw=true)
 
-### To Test Functionality of the Transmitter
+### Testing functionality
 1. Connect the arduino to your computer
 2. Open the serial monitor (Baud rate: 9600)
 3. For testing purposes, you can type the corresponding character on the serial monitor to control the outlet(s):
@@ -98,8 +98,29 @@ Bus 001 Device 004: ID 10c4:ea60 Cygnal Integrated Products, Inc. CP2102/CP2109 
 Press enter to send the command
 
 ## Setup instructions - ESP8266
-ESP8266's are used to read the temperature and humidity from sensors. These readings are published via MQTT.
+ESP8266's are used to read the temperature and humidity from DHT22 (AM2302) sensors. These readings are published via MQTT. The data is published to a topic on an MQTT broker over WiFi using the PubSubClient library.
 
+### Required Libraries
+- PubSubClient - This library provides functions for connecting to an MQTT broker, publishing data to an MQTT topic, and subscribing to MQTT topics.
+- Adafruit Unified Sensor - This library provides a common interface for interacting with a variety of sensors, including the DHT22 sensor used in this sketch.
+- DHT Sensor Library - This library provides functions for reading temperature and humidity data from the DHT22 sensor.
+
+###Instructions
+1. Install the ESP8266 board add-on https://randomnerdtutorials.com/how-to-install-esp8266-board-arduino-ide/ 
+2. Install the required libraries in the Arduino IDE.
+3. Open the Hale_Climate sketch in the Arduino IDE.
+4. Replace the following placeholders with your own values:
+- ssid - Replace with the name of your WiFi network.
+- password - Replace with the password for your WiFi network.
+- mqtt_server - Replace with the IP address of your MQTT broker.
+- room_name - Replace with a name for your room.
+4. Upload the sketch to your ESP8266 board.
+5. Disconnect the ESP8266 board from power and wire up the DHT sensor to your ESP8266 according to your board's specific pinouts
 ![alt text](https://github.com/tantinlala/hale-hub/blob/main/images/climate.jpeg?raw=true)
 
-(Under construction)
+### Testing functionality
+1. Apply power to the board.
+2. Open the Serial Monitor in Arduino IDE to view the output of the sketch. The device should connect to the WiFi network and MQTT broker and begin publishing temperature and humidity data to the specified topic.
+3. Verify that the data is being published to the MQTT broker using the command line tool mosquitto_sub: http://www.steves-internet-guide.com/mosquitto_pub-sub-clients/ 
+4. Verify that the Hale-Hub app running on the raspberry pi is printing up-to-date temperature and humidity readings periodically
+5. If the humidity reading is offset from the truth by a constant amount, you can apply an additive offset by changing the HUMIDITY_CALIBRATION value in the arduino sketch
