@@ -1,7 +1,7 @@
 from hale_hub.extensions import db
 from hale_hub.models import RoomStatModel
 from hale_hub.date_helpers import DateSnapper
-from hale_hub.constants import MAX_NUM_ROWS_ROOM_STAT_MODEL, STALE_TIME_SECONDS
+from hale_hub.constants import MAX_NUM_ROWS_ROOM_STAT_MODEL, STALE_TIME_SECONDS, BASEMENT_HUMIDITY_CALIBRATION
 from hale_hub.outlet_interface import get_outlets
 
 
@@ -29,6 +29,9 @@ class _HomeStatsCollection:
     def add_room_stat(self, location, name, value, units):
         if location not in self.newest_room_stats.keys():
             self.newest_room_stats[location] = dict()
+
+        if location == "Basement" and name == "Humidity":
+            value -= BASEMENT_HUMIDITY_CALIBRATION
 
         self.newest_room_stats[location][name] = _RoomStat(value, DateSnapper(), units)
         print(self.newest_room_stats)
