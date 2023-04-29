@@ -19,6 +19,3 @@ FAST_TICK_MISFIRE_TIME = 12
 
 # Constants associated with plots
 NUMBER_HOURS_ROOM_STAT_PLOT = 12
-
-# Constants associated with calibration parameters
-BASEMENT_HUMIDITY_CALIBRATION = 6.5
