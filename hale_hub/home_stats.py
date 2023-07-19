@@ -1,7 +1,7 @@
 from hale_hub.extensions import db
 from hale_hub.models import RoomStatModel
 from hale_hub.date_helpers import DateSnapper
-from hale_hub.constants import MAX_NUM_ROWS_ROOM_STAT_MODEL, STALE_TIME_SECONDS, BASEMENT_HUMIDITY_CALIBRATION
+from hale_hub.constants import MAX_NUM_ROWS_ROOM_STAT_MODEL, STALE_TIME_SECONDS
 from hale_hub.outlet_interface import get_outlets
 
 
