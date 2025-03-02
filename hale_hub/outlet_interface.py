@@ -27,7 +27,7 @@ class _OutletInterface:
             ports = [p.device for p in serial.tools.list_ports.comports() if self.serial_interface_string in p.description]
             self.serial_interface = serial.Serial(ports[0], SERIAL_BAUD_RATE, timeout=SERIAL_TIMEOUT)
         except IndexError:
-            send_ifttt_log(__name__, 'No serial ports could be upon!')
+            send_ifttt_log(__name__, 'No serial ports could be open!')
 
     def _send_outlet_command(self, outlet_id, outlet_state):
         try:

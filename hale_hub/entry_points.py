@@ -10,5 +10,4 @@ def hale_hub_run():
 def hale_hub_setup():
     app = create_app()
     with app.app_context():
-        db.init_app(app)
         db.create_all()

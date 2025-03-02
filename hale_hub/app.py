@@ -1,6 +1,7 @@
 import os
 from flask import Flask
 from hale_hub.extensions import db, mqtt, scheduler
+from hale_hub.app_configs import BaseConfig
 
 # For blueprints
 from hale_hub import frontend
@@ -55,8 +56,7 @@ def create_app():
 
 def configure_app(app):
     """Set up configuration dictionary"""
-    config_name = os.getenv('FLASK_CONFIGURATION', 'base')
-    app.config.from_object(config[config_name])
+    app.config.from_object('hale_hub.app_configs.BaseConfig')
     app.config.from_pyfile('instance_config.py', silent=True)
 
 
