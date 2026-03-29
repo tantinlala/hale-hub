@@ -8,7 +8,9 @@ setup(
     license='',
     description='My home automation application',
     install_requires=[
-        'Flask',
+        'MarkupSafe==2.0.0',
+        'Flask<2.1.0; python_version < "3.9"',
+        'tzlocal<4.0',
         'Flask-RESTful',
         'Flask-APScheduler',
         'pyserial',
