@@ -1,1 +1,1 @@
-from hale_hub.app import create_app
+from hale_hub.app import create_hub

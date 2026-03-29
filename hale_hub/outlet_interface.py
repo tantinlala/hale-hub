@@ -1,7 +1,6 @@
 import serial
 import serial.tools.list_ports
 from hale_hub.constants import STARTING_OUTLET_COMMAND, SERIAL_BAUD_RATE, SERIAL_TIMEOUT
-from hale_hub.ifttt_logger import send_ifttt_log
 
 
 class _Outlet:
@@ -27,7 +26,7 @@ class _OutletInterface:
             ports = [p.device for p in serial.tools.list_ports.comports() if self.serial_interface_string in p.description]
             self.serial_interface = serial.Serial(ports[0], SERIAL_BAUD_RATE, timeout=SERIAL_TIMEOUT)
         except IndexError:
-            send_ifttt_log(__name__, 'No serial ports could be upon!')
+            print('No serial ports could be found!')
 
     def _send_outlet_command(self, outlet_id, outlet_state):
         try:
@@ -36,8 +35,8 @@ class _OutletInterface:
             print('Writing {0} to serial'.format(command))
             self.serial_interface.write(command)
         except (serial.SerialException, AttributeError):
-            send_ifttt_log(__name__, 'No serial bytes could be written')
-            if self.serial_interface.is_open():
+            print('No serial bytes could be written')
+            if self.serial_interface is not None and self.serial_interface.is_open:
                 self.serial_interface.close()
             self.set_serial_interface(self.serial_interface_string)
 

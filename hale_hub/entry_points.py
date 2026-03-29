@@ -1,14 +1,11 @@
-from hale_hub import create_app
-from hale_hub.extensions import db
+from hale_hub import create_hub
+from hale_hub.task_scheduler import run_scheduler
 
 
 def hale_hub_run():
-    app = create_app()
-    app.run(host='0.0.0.0')
+    create_hub()
+    run_scheduler()
 
 
 def hale_hub_setup():
-    app = create_app()
-    with app.app_context():
-        db.init_app(app)
-        db.create_all()
+    print("No setup needed for the lights-only build.")
