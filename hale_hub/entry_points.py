@@ -1,5 +1,4 @@
 from hale_hub import create_app
-from hale_hub.extensions import db
 
 
 def hale_hub_run():
@@ -8,7 +7,5 @@ def hale_hub_run():
 
 
 def hale_hub_setup():
-    app = create_app()
-    with app.app_context():
-        db.init_app(app)
-        db.create_all()
+    # No setup is required for the lights-only runtime.
+    return

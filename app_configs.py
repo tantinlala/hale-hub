@@ -1,17 +1,15 @@
-import os
-
-
 class BaseConfig(object):
-    MQTT_BROKER_PORT = 1883  # default port for non-tls connection
-    MQTT_KEEPALIVE = 5  # set the time interval for sending a ping to the broker to 5 seconds
-    MQTT_TLS_ENABLED = False  # set TLS to disabled for testing purposes
-    MQTT_BROKER_URL = 'localhost'  # broker is local by default
-    MQTT_USERNAME = ''  # set the username here if you need authentication for the broker
-    MQTT_PASSWORD = ''  # set the password here if the broker demands authentication
-
-    SQLALCHEMY_ECHO = False
     DEBUG = False
 
-    basedir = os.path.abspath(os.path.dirname(__file__))
-    baseDB = os.path.join(basedir, 'instance/instance.db')
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + baseDB
+    SERIAL_INTERFACE = ''
+    OUTLET_0_NAME = 'Outlet 0'
+    OUTLET_1_NAME = 'Outlet 1'
+    OUTLET_2_NAME = 'Outlet 2'
+
+    AUTO_LIGHT_OUTLET_ID = 0
+    LIGHT_OFF_HOUR = 22
+    LIGHT_OFF_MINUTE = 45
+
+    LATITUDE = 0.0
+    LONGITUDE = 0.0
+    SUNSET_OFFSET_MINUTES = 50

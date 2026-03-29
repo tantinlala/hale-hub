@@ -3,19 +3,15 @@ from setuptools import setup
 setup(
     name='HaleHub',
     version='0.1.0',
-    packages=['hale_hub', 'hale_hub.rest_api', 'hale_hub.frontend'],
+    packages=['hale_hub', 'hale_hub.rest_api'],
     url='',
     license='',
     description='My home automation application',
     install_requires=[
         'Flask',
-        'Flask-SQLAlchemy',
         'Flask-RESTful',
-        'Flask-MQTT',
         'Flask-APScheduler',
         'pyserial',
-        'requests',
-        'pytz',
         'suntime',
     ],
     entry_points={
