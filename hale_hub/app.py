@@ -32,7 +32,7 @@ from hale_hub.ifttt_logger import send_ifttt_log
 from hale_hub.outlet_interface import turn_on_outlet, turn_off_outlet
 
 config = {
-    "base": "app_configs.BaseConfig",
+    "base": "hale_hub.app_configs.BaseConfig",
 }
 
 
